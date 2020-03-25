@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="lock" unicode="&#58880;" d="M818.247 483.673h-45.989v70.992c0 152.308-123.463 275.779-275.778 275.779S220.698 706.973 220.698 554.665v-70.992h-45.987c-25.379 0-45.988-20.566-45.988-45.987v-455.407c0-25.428 20.56-45.989 45.988-45.989h643.536c25.377 0 45.988 20.56 45.988 45.989V437.686c-0.045 25.42-20.611 45.987-45.988 45.987z m-137.915 0H312.625v70.992c0 101.554 82.345 183.853 183.855 183.853 101.51 0 183.853-82.343 183.853-183.853v-70.992h-0.001z m0 0"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

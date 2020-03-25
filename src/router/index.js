@@ -1,5 +1,3 @@
-import treeMenu from '../views/tree-menu/index.vue'
-
 
 const routes = [
     {
@@ -7,15 +5,8 @@ const routes = [
         redirect: '/home'
     },
     {
-        path: '/home',
-        component: (resolve) => require(['../views/index.vue'], resolve)
-    },
-    {
-        path: '/treeMenu',
-        meta: {
-            title: 'treeMenu'
-        },
-        component: treeMenu
+        path: '/login',
+        component: (resolve) => require(['../views/login.vue'], resolve)
     },
 
 ]

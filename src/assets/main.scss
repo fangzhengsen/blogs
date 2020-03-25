@@ -1,2 +1,6 @@
-@import './mixins.scss';
 @import './reset.scss';
+@import './iconFont/iconfont.css';
+
+i[class^="el-icon-"] {
+    font-size: 20px;
+}
