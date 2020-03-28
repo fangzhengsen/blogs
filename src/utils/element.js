@@ -4,8 +4,15 @@ import {
     InputNumber, Radio, Checkbox, Switch, Button, Table, TableColumn,
     Tooltip, Breadcrumb, BreadcrumbItem, Form, FormItem, Tree, Alert,
     Slider, Icon, Row, Col, Upload, Progress, Container, Header,
-    Aside, Main, Footer, Image, MessageBox, Message,
+    Aside, Main, Footer, Image, MessageBox, Message, Dropdown, DropdownMenu,
+    DropdownItem, MenuItemGroup
 } from 'element-ui'
+
+Vue.use(MenuItemGroup)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+
 Vue.use(Col)
 Vue.use(Upload)
 Vue.use(Progress)

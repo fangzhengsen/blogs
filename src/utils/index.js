@@ -1,1 +1,2 @@
-import './element'
+import './element';
+import './mock/index'

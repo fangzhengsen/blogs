@@ -53,25 +53,37 @@ export default {
       rules: {
         name: [
           { required: true, message: "请输入用户名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur" }
         ],
         pwd: [
           { validator: validatePass, trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) return false;
-        this.$notify({
-          title: "成功",
-          message: "登入成功",
-          type: "success",
-          duration: 1000
-        });
+        let res = await this.$http.getUser(this.user);
+        if (res.data) {
+          this.$notify({
+            title: "成功",
+            message: res.msg,
+            type: "success",
+            duration: 1000
+          });
+          window.sessionStorage.setItem("user", "frank");
+          this.$router.push("/home");
+        } else {
+          this.$notify({
+            title: "警告",
+            message: res.msg,
+            type: "warning",
+            duration: 1000
+          });
+        }
       });
     },
     reset() {

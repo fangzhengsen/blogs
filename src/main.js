@@ -6,6 +6,7 @@ import routes from "./router";
 import './utils/index'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/main.scss'
+import http from './utils/http'
 
 Vue.config.productionTip = false
 
@@ -19,15 +20,20 @@ const RouterConfig = {
 
 const router = new VueRouter(RouterConfig)
 
-// router.beforeEach((to,from,next)=>{
-//   window.document.title=to.meta.title
-//   next();
-// })
+router.beforeEach((to, from, next) => {
+  if (to.path != "/login" && !window.sessionStorage.getItem('user')) {
+    next({
+      path: '/login',
+    })
+  } else {
+    next()
+  }
+})
 
-// router.afterEach((to, from, next) => {
-//   window.scrollTo(0, 0)
-// })
-
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+})
+Vue.prototype.$http = http;
 
 
 new Vue({
