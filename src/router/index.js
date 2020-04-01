@@ -11,11 +11,11 @@ const routes = [
     {
         path: '/home',
         component: (resolve) => require(['../views/home.vue'], resolve),
-        redirect: '/userList',
+        redirect: '/overview',
         children: [
             {
-                path: '/userList',
-                component: (resolve) => require(['../views/components/userList.vue'], resolve),
+                path: '/overview',
+                component: (resolve) => require(['../views/components/overview.vue'], resolve),
             },
             {
                 path: '/content_edit',

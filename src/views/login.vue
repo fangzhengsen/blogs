@@ -47,8 +47,8 @@ export default {
     };
     return {
       user: {
-        name: "",
-        pwd: ""
+        name: "ewrr",
+        pwd: "werwerwer"
       },
       rules: {
         name: [

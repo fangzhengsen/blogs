@@ -8,11 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "art-template": "^4.13.2",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "core-js": "^3.4.3",
     "element-ui": "^2.13.0",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
     "mockjs": "^1.1.0",
     "mysql": "^2.18.1",
+    "path": "^0.12.7",
     "qs": "^6.9.2",
     "sass": "^1.26.2",
     "vue": "^2.6.10",
@@ -42,7 +47,8 @@
     "rules": {
       "no-unused-vars": "off",
       "no-console": "off",
-      "no-mixed-spaces-and-tabs": "off"
+      "no-mixed-spaces-and-tabs": "off",
+      "no-debugger": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"

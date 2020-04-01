@@ -28,14 +28,14 @@
           active-text-color="#ffd04b"
         >
           <el-menu-item class="toggleMenu" @click="isCollapse=!isCollapse">
-            <i :class="isCollapse?'el-icon-s-fold':'el-icon-s-unfold'"></i>
+            <i :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"></i>
           </el-menu-item>
           <template v-for="item in menulist">
             <el-menu-item
               :index="item.id"
               v-if="item.children.length===0"
               :key="item.id"
-              @click="routeTo(item.path)"
+              @click="routeTo(null,item)"
             >
               <i :class="item.icon"></i>
               <span slot="title">{{item.authName}}</span>
@@ -49,7 +49,7 @@
                 :index="subItem.id"
                 v-for="subItem in item.children"
                 :key="subItem.id"
-                @click="routeTo(subItem.path)"
+                @click="routeTo(item,subItem)"
               >
                 <i :class="subItem.icon"></i>
                 {{subItem.authName}}
@@ -59,11 +59,12 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>
-            <a href="/">活动管理</a>
-          </el-breadcrumb-item>
+        <el-breadcrumb separator="/" v-if="breadcrumb.length!=0">
+          <el-breadcrumb-item
+            v-for="(item,index) in breadcrumb"
+            :to="item.path?item.path:''"
+            :key="index"
+          >{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <router-view></router-view>
       </el-main>
@@ -77,7 +78,8 @@ export default {
     return {
       isCollapse: false,
       activeItem: "",
-      menulist: []
+      menulist: [],
+      breadcrumb: []
     };
   },
 
@@ -86,20 +88,31 @@ export default {
       let res = await this.$http.getMenuList();
       this.menulist = [...res.data];
       this.$nextTick(() => {
-        this.activeItem =
-          this.menulist[0].children.length === 0
-            ? this.menulist[0].id
-            : this.menulist[0].children[0].id;
+        if (window.sessionStorage.getItem("breadcrumb")) {
+          this.breadcrumb.push(
+            ...window.sessionStorage.getItem("breadcrumb").split(",")
+          );
+        }
+        if (window.sessionStorage.getItem("activeItem")) {
+          this.activeItem = window.sessionStorage.getItem("activeItem");
+        }
       });
     },
     handleCommand(key) {
       if (key == "loginOut") {
         this.$router.push("/login");
-        window.sessionStorage.setItem("user", "");
+        window.sessionStorage.clear();
       }
     },
-    routeTo(path) {
-      this.$router.push("/" + path);
+    routeTo(parent, item) {
+      if (this.activeItem === item.id) return;
+      this.activeItem = item.id;
+      this.breadcrumb = [];
+      parent && this.breadcrumb.push(parent.authName);
+      this.breadcrumb.push(item.authName);
+      window.sessionStorage.setItem("breadcrumb", this.breadcrumb);
+      window.sessionStorage.setItem("activeItem", this.activeItem);
+      this.$router.push("/" + item.path);
     }
   },
   mounted() {
@@ -120,6 +133,9 @@ export default {
 }
 .el-container {
   height: 100%;
+}
+.el-breadcrumb {
+  margin-bottom: 20px;
 }
 .el-aside {
   background: #545c64;
@@ -142,5 +158,10 @@ export default {
   i {
     font-size: 26px;
   }
+}
+.el-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 </style>

@@ -1,2 +1,2 @@
 import './element';
-import './mock/index'
+// import './mock/index'

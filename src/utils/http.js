@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Notification } from 'element-ui'
 
 let fetch = axios.create({
-    baseURL: '/',
-    // baseURL: 'http://localhost:8083/api',
+    // baseURL: '/',
+    baseURL: 'http://localhost:8083/',
     timeout: 3000,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 })
