@@ -14,23 +14,20 @@ var connection = mysql.createConnection({
     database: 'blogs'
 });
 
+//连接数据库
+connection.connect();
+
 // 处理ajax和form表单post请求参数
-
-// parse application/json
-app.use(bodyParser.json())
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(bodyParser.json())// parse application/json
+app.use(bodyParser.urlencoded({ extended: true }))// parse application/x-www-form-urlencoded
 
 //允许跨域请求设置
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By", ' 3.2.1')
-    res.header("Content-Type", "application/json;charset=utf-8");
-
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    // res.header("X-Powered-By", ' 3.2.1')
+    // res.header("Content-Type", "application/json;charset=utf-8");
     next();
 })
 
@@ -39,18 +36,22 @@ app.use('/public', express.static('./nodeApi/public/'))
 
 //设置模板后缀名
 app.engine('html', require('express-art-template'))
+
 //配置模板所在文件夹名
 app.set('views', path.join(__dirname, 'templates'))
 
 app.post('/user', function (req, res) {
-    console.log(req.body)
-    let user = {
-        data: true,
-        msg: '登陆成功了'
-    }
-    console.log("请求api")
-    res.end(JSON.stringify(user))
+    let sql = `SELECT * from user WHERE user_name='${req.body.name}' AND user_pwd='${req.body.pwd}'`
+    connection.query(sql, function (error, results) {
+        if (error) throw error;
+        if (results.length) {
+            let token = Math.floor(new Date().getTime() + Math.random() * 100000)
+            res.end(JSON.stringify({ msg: '请求成功', data: true, code: 200, token: token }))
+        } else {
+            res.end(JSON.stringify({ msg: '用户名或密码错误', data: false, code: 203 }))
+        }
 
+    });
 })
 
 app.get('/sideMenu', function (req, res) {
@@ -151,7 +152,7 @@ app.listen('8083', function () {
     console.log("服务启动成功，监听8083端口")
 })
 
-connection.connect(); //连接数据库
+
 
 
 

@@ -21,7 +21,7 @@ const RouterConfig = {
 const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
-  if (to.path != "/login" && !window.sessionStorage.getItem('user')) {
+  if (to.path != "/login" && !window.sessionStorage.getItem('token')) {
     next({
       path: '/login',
     })
@@ -33,6 +33,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 })
+
 Vue.prototype.$http = http;
 
 

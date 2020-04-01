@@ -47,8 +47,8 @@ export default {
     };
     return {
       user: {
-        name: "ewrr",
-        pwd: "werwerwer"
+        name: "test",
+        pwd: "testtest"
       },
       rules: {
         name: [
@@ -67,6 +67,7 @@ export default {
       this.$refs[formName].validate(async valid => {
         if (!valid) return false;
         let res = await this.$http.getUser(this.user);
+        console.log(res);
         if (res.data) {
           this.$notify({
             title: "成功",
@@ -74,7 +75,8 @@ export default {
             type: "success",
             duration: 1000
           });
-          window.sessionStorage.setItem("user", "frank");
+
+          window.sessionStorage.setItem("token", res.token);
           this.$router.push("/home");
         } else {
           this.$notify({

@@ -1,6 +1,7 @@
 import CONNECTAPI from "../api/connectApi";
 import axios from 'axios'
 import { Notification } from 'element-ui'
+import qs from 'qs';
 
 let fetch = axios.create({
     // baseURL: '/',
@@ -32,7 +33,7 @@ for (let i in CONNECTAPI) {
         let response = {}
         if (api.method === 'put' || api.method === 'patch' || api.method === 'post') {
             try {
-                response = await fetch[api.method](api.url, newParams, config)
+                response = await fetch[api.method](api.url, qs.stringify(newParams), config)
             } catch (e) {
                 response = e
             }
