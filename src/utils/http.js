@@ -69,7 +69,7 @@ fetch.interceptors.request.use((config) => {
 fetch.interceptors.response.use(res => {
     loadingNotice.close();
     return res.data
-}, (err) => {
+}, (err, res) => {
     loadingNotice.close();
     Notification({
         title: "警告",

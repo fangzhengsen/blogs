@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
-          <el-button @click="reset">重置</el-button>
+          <el-button @click="reset('userForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -47,8 +48,8 @@ export default {
     };
     return {
       user: {
-        name: "test",
-        pwd: "testtest"
+        name: "",
+        pwd: ""
       },
       rules: {
         name: [
@@ -62,34 +63,46 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters(["username", "userpwd"])
+  },
+  created() {
+    this.init();
+  },
   methods: {
+    ...mapActions(["setUserName"]),
+    init() {
+      this.user.name = this.username;
+      this.user.pwd = this.userpwd;
+    },
     submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (!valid) return false;
         let res = await this.$http.getUser(this.user);
-        console.log(res);
-        if (res.data) {
+        if (!res) return;
+        if (res && res.data) {
           this.$notify({
             title: "成功",
             message: res.msg,
             type: "success",
             duration: 1000
           });
-
+          this.setUserName(this.user.name);
+          window.sessionStorage.setItem("username", this.user.name);
           window.sessionStorage.setItem("token", res.token);
           this.$router.push("/home");
         } else {
           this.$notify({
             title: "警告",
-            message: res.msg,
+            message: res ? res.msg : "请求失败",
             type: "warning",
             duration: 1000
           });
         }
       });
     },
-    reset() {
-      this.$refs["userForm"].resetFields();
+    reset(formName) {
+      this.$refs[formName].resetFields();
     }
   }
 };

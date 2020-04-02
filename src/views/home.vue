@@ -6,6 +6,7 @@
         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
         fit="fill"
       ></el-image>
+      <div class="welcome">欢迎 {{username}}</div>
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
           个人中心
@@ -32,23 +33,23 @@
           </el-menu-item>
           <template v-for="item in menulist">
             <el-menu-item
-              :index="item.id"
+              :index="item.model_id"
               v-if="item.children.length===0"
-              :key="item.id"
+              :key="item.model_id"
               @click="routeTo(null,item)"
             >
               <i :class="item.icon"></i>
               <span slot="title">{{item.authName}}</span>
             </el-menu-item>
-            <el-submenu v-else :index="item.id" :key="item.id">
+            <el-submenu v-else :index="item.model_id" :key="item.model_id">
               <template slot="title">
                 <i :class="item.icon"></i>
                 <span>{{item.authName}}</span>
               </template>
               <el-menu-item
-                :index="subItem.id"
+                :index="subItem.model_id"
                 v-for="subItem in item.children"
-                :key="subItem.id"
+                :key="subItem.model_id"
                 @click="routeTo(item,subItem)"
               >
                 <i :class="subItem.icon"></i>
@@ -79,7 +80,8 @@ export default {
       isCollapse: false,
       activeItem: "",
       menulist: [],
-      breadcrumb: []
+      breadcrumb: [],
+      username: window.sessionStorage.getItem("username")
     };
   },
 
@@ -105,8 +107,8 @@ export default {
       }
     },
     routeTo(parent, item) {
-      if (this.activeItem === item.id) return;
-      this.activeItem = item.id;
+      if (this.activeItem === item.model_id) return;
+      this.activeItem = item.model_id;
       this.breadcrumb = [];
       parent && this.breadcrumb.push(parent.authName);
       this.breadcrumb.push(item.authName);
@@ -130,6 +132,10 @@ export default {
 }
 .el-dropdown {
   color: #fff;
+  flex: 0 0 85px;
+}
+.el-image {
+  flex: 0 0 50px;
 }
 .el-container {
   height: 100%;
@@ -150,6 +156,13 @@ export default {
       margin-right: 8px;
     }
   }
+}
+.welcome {
+  color: #e6a23c;
+  display: flex;
+  flex: 0 1 100%;
+  justify-content: flex-end;
+  margin-right: 20px;
 }
 .toggleMenu {
   display: flex;

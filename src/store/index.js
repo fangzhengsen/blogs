@@ -1,22 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import userinfo from './userinfo'
+import getters from './getters'
+import actions from './actions'
 
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
-    state: {
-        count: 0,//测试数据
+    modules: {
+        userinfo,
     },
-    getters: {
+    getters,
+    actions
 
-    },
-    mutations: {
-
-    },
-    actions: {
-
-
-    }
 })
 
 export default store
