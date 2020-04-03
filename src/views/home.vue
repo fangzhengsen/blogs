@@ -129,6 +129,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   background: #39444f;
+  box-shadow: 0px 1px 1px 0px #000;
+  z-index: 1;
 }
 .el-dropdown {
   color: #fff;
@@ -141,7 +143,8 @@ export default {
   height: 100%;
 }
 .el-breadcrumb {
-  margin-bottom: 20px;
+  padding: 15px;
+  background: #f2f2f2;
 }
 .el-aside {
   background: #545c64;
@@ -176,5 +179,6 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  padding: 0;
 }
 </style>

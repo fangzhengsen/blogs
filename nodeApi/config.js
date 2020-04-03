@@ -1,6 +1,5 @@
 var express = require('express')
 var mysql = require('mysql');
-var path = require('path')
 var bodyParser = require('body-parser')
 
 //创建应用服务
@@ -33,13 +32,6 @@ app.all('*', function (req, res, next) {
 
 //配置静态文件路径
 app.use('/public', express.static('./nodeApi/public/'))
-
-//设置模板后缀名
-app.engine('html', require('express-art-template'))
-
-//配置模板所在文件夹名
-app.set('views', path.join(__dirname, 'templates'))
-
 
 app.listen('8083', function () {
     console.log("服务启动成功，监听8083端口")

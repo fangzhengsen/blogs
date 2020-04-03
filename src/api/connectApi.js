@@ -7,5 +7,9 @@ const CONNECTAPI = {
         method: 'get',
         url: '/sideMenu'
     },
+    getTemplateList: {
+        method: 'post',
+        url: '/templateList'
+    },
 }
 export default CONNECTAPI;

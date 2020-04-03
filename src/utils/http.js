@@ -4,7 +4,6 @@ import { Notification } from 'element-ui'
 import qs from 'qs';
 
 let fetch = axios.create({
-    // baseURL: '/',
     baseURL: 'http://localhost:8083/',
     timeout: 3000,
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -51,6 +50,7 @@ for (let i in CONNECTAPI) {
 
 //拦截器的添加
 fetch.interceptors.request.use((config) => {
+    loadingNotice && loadingNotice.close();
     loadingNotice = Notification({
         title: "提示",
         message: "加载中",
