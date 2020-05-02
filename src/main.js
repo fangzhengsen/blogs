@@ -4,9 +4,10 @@ import VueRouter from 'vue-router'
 import store from "./store";
 import routes from "./router";
 import './utils/index'
+import http from './utils/http'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/main.scss'
-import http from './utils/http'
+
 
 Vue.config.productionTip = false
 

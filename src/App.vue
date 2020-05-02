@@ -5,7 +5,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    window.addEventListener("message", function(ev) {
+      console.log(ev);
+    });
+  }
+};
 // document.addEventListener("DOMContentLoaded", () => {
 //   // 获取html元素
 //   const html = document.querySelector("html");

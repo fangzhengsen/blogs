@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      activeItem: "",
+      activeItem: "103",
       menulist: [],
       breadcrumb: [],
       username: window.sessionStorage.getItem("username")
@@ -89,6 +89,7 @@ export default {
     async getMenuList() {
       let res = await this.$http.getMenuList();
       this.menulist = [...res.data];
+      console.log(this.menulist);
       this.$nextTick(() => {
         if (window.sessionStorage.getItem("breadcrumb")) {
           this.breadcrumb.push(

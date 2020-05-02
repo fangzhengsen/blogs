@@ -9,15 +9,17 @@ function getJsonFiles(jsonPath) {
             let fPath = join(path, item);
             let stat = fs.statSync(fPath);
             let dirOrFile = {};
+            dirOrFile.oldPath = fPath;
+            dirOrFile.path = fPath.replace(/nodeApi\\templates\\/, '')
             if (stat.isDirectory() === true) {
                 dirOrFile.fileType = 'dir'
+                jsonFiles.unshift(dirOrFile);
             }
             if (stat.isFile() === true) {
                 dirOrFile.fileType = 'file'
+                jsonFiles.push(dirOrFile)
             }
-            dirOrFile.oldPath = fPath;
-            dirOrFile.path = fPath.replace(/nodeApi/, '')
-            jsonFiles.unshift(dirOrFile);
+
         });
     }
     findJsonFile(jsonPath);

@@ -9,7 +9,6 @@ let fetch = axios.create({
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 })
 
-let loadingNotice = null
 const http = {}
 
 for (let i in CONNECTAPI) {
@@ -50,27 +49,13 @@ for (let i in CONNECTAPI) {
 
 //拦截器的添加
 fetch.interceptors.request.use((config) => {
-    loadingNotice && loadingNotice.close();
-    loadingNotice = Notification({
-        title: "提示",
-        message: "加载中",
-        duration: 0
-    });
     return config
 }, () => {
-    loadingNotice = Notification({
-        title: "警告",
-        message: "加载失败",
-        duration: 2000,
-        type: 'warning'
-    });
 })
 
 fetch.interceptors.response.use(res => {
-    loadingNotice.close();
     return res.data
 }, (err, res) => {
-    loadingNotice.close();
     Notification({
         title: "警告",
         message: err,
