@@ -90,11 +90,11 @@ export default {
           this.setUserName(this.user.name);
           window.sessionStorage.setItem("username", this.user.name);
           window.sessionStorage.setItem("token", res.token);
-          var otherWindow = window.open("http://192.168.0.2:8081/login");
-          setTimeout(function() {
-            otherWindow.postMessage({ data: res.token }, "*");
-          });
-          // this.$router.push("/home");
+          // var otherWindow = window.open("http://192.168.0.2:8081/login");
+          // setTimeout(function() {
+          //   otherWindow.postMessage({ data: res.token }, "*");
+          // });
+          this.$router.push("/home");
         } else {
           this.$notify({
             title: "警告",
